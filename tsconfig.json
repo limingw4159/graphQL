@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2015",
+    "strict": true,
+    "outDir": "dist",
+    "allowJs": false,
+    "removeComments": true,
+    "noEmit": false,
+    "noImplicitAny": true
+  },
+  "include": ["src"]
+}
