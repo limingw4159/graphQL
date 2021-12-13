@@ -1,6 +1,5 @@
 import * as graphql from "graphql";
 import _ = require("lodash");
-import { IUserType } from "../Interface/IUserType";
 
 const userData = [
   { id: "1", name: "Bond", age: 36, profession: "painter" },
@@ -47,6 +46,8 @@ const {
   GraphQLInt,
   GraphQLSchema,
   GraphQLList,
+  GraphQLBoolean,
+  GraphQLFloat,
 } = graphql;
 const UserType: any = new GraphQLObjectType({
   name: "User",
@@ -153,6 +154,7 @@ const Mutation = new GraphQLObjectType({
     },
   },
 });
+
 const RootQuery = new GraphQLObjectType({
   name: "rootQueryType",
   description: "Description",
@@ -166,6 +168,12 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return _.find(userData, { id: args.id });
+      },
+    },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parent, args) {
+        return userData;
       },
     },
     hobby: {
@@ -182,6 +190,12 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(postsData, { id: args.id });
+      },
+    },
+    posts: {
+      type: new GraphQLList(PosyType),
+      resolve(parent, args) {
+        return postsData;
       },
     },
   },

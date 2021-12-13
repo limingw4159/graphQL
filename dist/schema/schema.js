@@ -40,7 +40,7 @@ const postsData = [
     { id: "6", comment: "Building a NicePostData", userId: "5" },
     { id: "7", comment: "Building a NicePostData", userId: "2" },
 ];
-const { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLList, } = graphql;
+const { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLList, GraphQLBoolean, GraphQLFloat, } = graphql;
 const UserType = new GraphQLObjectType({
     name: "User",
     description: "document for user....",
@@ -161,6 +161,12 @@ const RootQuery = new GraphQLObjectType({
                 return _.find(userData, { id: args.id });
             },
         },
+        users: {
+            type: new GraphQLList(UserType),
+            resolve(parent, args) {
+                return userData;
+            },
+        },
         hobby: {
             type: HobbyType,
             args: {
@@ -175,6 +181,12 @@ const RootQuery = new GraphQLObjectType({
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
                 return _.find(postsData, { id: args.id });
+            },
+        },
+        posts: {
+            type: new GraphQLList(PosyType),
+            resolve(parent, args) {
+                return postsData;
             },
         },
     },
